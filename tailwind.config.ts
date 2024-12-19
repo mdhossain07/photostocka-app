@@ -1,6 +1,5 @@
-import type { Config } from "tailwindcss";
-
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,11 +7,17 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "2rem",
+        },
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
     },
   },
   plugins: [],
-} satisfies Config;
+};
