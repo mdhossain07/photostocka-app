@@ -1,12 +1,7 @@
 import PhotoDetails from "@/components/PhotoDetails";
 
-export default async function PhotoDetailsPage({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
-  const response = await fetch(`${process.env.BASE_API_URL}/photos/${id}`);
-  const photo = await response.json();
+export default async function PhotoDetailsPage({ params }) {
+  const { id, lang } = await params;
 
-  return <PhotoDetails photo={photo} />;
+  return <PhotoDetails id={id} lang={lang} />;
 }

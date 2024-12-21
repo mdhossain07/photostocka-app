@@ -1,7 +1,13 @@
-import { IPhotoDetails } from "@/types";
+import { getDictionary } from "@/app/[lang]/dictonaries";
+import { Download, Heart, Share2, UserPlus } from "lucide-react";
 import Image from "next/image";
 
-export default function PhotoDetails({ photo }: { photo: IPhotoDetails }) {
+export default async function PhotoDetails({ id, lang }) {
+  const response = await fetch(`${process.env.BASE_API_URL}/photos/${id}`);
+  const photo = await response.json();
+
+  const dictonary = await getDictionary(lang);
+
   return (
     <div className="grid grid-cols-12 gap-4 2xl:gap-10 ">
       <div className="col-span-12 lg:col-span-8 border rounded-xl">
@@ -49,19 +55,13 @@ export default function PhotoDetails({ photo }: { photo: IPhotoDetails }) {
               <div className="spacy-y-3">
                 <h6 className="lg:text-lg font-bold">{photo.author.name}</h6>
                 <p className="text-black/60 text-xs lg:text-sm">
-                  {photo.author.followers} Followers
+                  {photo.author.followers} {dictonary?.followers}
                 </p>
               </div>
             </div>
             <button className="flex items-center gap-1.5 text-black/60 text-xs xl:text-sm">
-              <Image
-                src={"/follow.svg"}
-                className="w-5 h-5"
-                height={100}
-                width={100}
-                alt=""
-              />
-              Follow
+              <UserPlus />
+              {dictonary?.follow}
             </button>
           </div>
           <p className="text-xs lg:text-sm text-black/60">{photo.author.bio}</p>
@@ -70,34 +70,16 @@ export default function PhotoDetails({ photo }: { photo: IPhotoDetails }) {
         <div className="mt-6">
           <div className="flex items-stretch gap-3">
             <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image
-                src="/heart.svg"
-                className="w-5 h-5"
-                height={50}
-                width={50}
-                alt=""
-              />
+              <Heart size="14px" />
               100
             </button>
             <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image
-                src="/save.svg"
-                className="w-5 h-5"
-                height={50}
-                width={50}
-                alt=""
-              />
-              Save
+              <Download size="14px" />
+              {dictonary?.save}
             </button>
             <button className="flex-1 border py-1.5 rounded text-xs lg:text-sm flex items-center justify-center text-center gap-1.5 font-bold hover:bg-yellow-400">
-              <Image
-                src="/share.svg"
-                className="w-5 h-5"
-                height={50}
-                width={50}
-                alt=""
-              />
-              Share
+              <Share2 size="14px" />
+              {dictonary?.share}
             </button>
           </div>
         </div>
