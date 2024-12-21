@@ -3,7 +3,9 @@ import { Download, Heart, Share2, UserPlus } from "lucide-react";
 import Image from "next/image";
 
 export default async function PhotoDetails({ id, lang }) {
-  const response = await fetch(`${process.env.PROD_BASE_API_URL}/photos/${id}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/photos/${id}`
+  );
   const photo = await response.json();
 
   const dictonary = await getDictionary(lang);
